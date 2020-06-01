@@ -1,0 +1,28 @@
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
+
+
+df=pd.read_excel('/home/angel/Escritorio/clasificar/dato.xlsx')
+print(df.head())
+
+y=df['CLIperdido']
+
+predictores = ['SatisfaccionMedia', 'SatisfaccionUltCompra',
+'ArticulosUltCompra', 'ArticulosTotales','HorasMediasWEB',
+'ComraUltimos30dias', 'Ciudad', 'Profesion', 'RangoSalarial'
+]
+X = df[predictores]
+
+X_train, X_test, y_train, y_test, = train_test_split(X, y, random_state=0)
+
+scaler= MinMaxScaler()
+le=LabelEncoder()
+df['RangoSalarial'] = le.fit_transform(df['RangoSalarial'])
+df['Profesion'] = le.fit_transform(df['Profesion'])
+df['Ciudad'] = le.fit_transform(df['Ciudad'])
+
+#https://www.toptal.com/machine-learning/explorando-algoritmos-de-aprendizaje-automatico-supervisado
